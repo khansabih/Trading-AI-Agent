@@ -7,7 +7,7 @@ from textblob import TextBlob
 from datetime import datetime
 from ta.momentum import RSIIndicator
 
-NEWS_API_KEY = 'bced3f90eea743a0a693c11f677b36b6'
+NEWS_API_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 news_api = NewsApiClient(api_key=NEWS_API_KEY)
 
 indian_nifty100_tickers = [
