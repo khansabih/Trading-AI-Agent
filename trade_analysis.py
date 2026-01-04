@@ -149,9 +149,9 @@ sell_signals = filtered_df[
 ]
 
 print("\n--- Trade Signals ---")
-print("📈 Buy Signals:")
+print("Buy Signals:")
 print(buy_signals[['Ticker', 'Change (%)', 'Sentiment Score']])
-print("\n📉 Sell Signals:")
+print("\n Sell Signals:")
 print(sell_signals[['Ticker', 'Change (%)', 'Sentiment Score']])
 
 # Save snapshot
@@ -163,11 +163,11 @@ buy_signals.to_csv(f"buy_signals_{date_str}.csv", index=False)
 # Momentum Decay Analysis
 def price_decay_momentum_analysis(ticker):
     try:
-        print(f"\n📉 Analyzing price momentum decay for {ticker}...")
+        print(f"\n Analyzing price momentum decay for {ticker}...")
         data = yf.Ticker(ticker).history(period="90d")
 
         if len(data) < 10:
-            print(f"⚠️ Not enough data for {ticker}")
+            print(f"Not enough data for {ticker}")
             return
 
         data["Daily Return"] = data["Close"].pct_change()
@@ -183,8 +183,8 @@ def price_decay_momentum_analysis(ticker):
         except IndexError:
             decay_days = "Not decayed yet"
 
-        print(f"🔍 Momentum peak at {peak_day.date()} with {peak_val:.4f} return")
-        print(f"⏳ Momentum decay: {decay_days} days")
+        print(f"Momentum peak at {peak_day.date()} with {peak_val:.4f} return")
+        print(f"Momentum decay: {decay_days} days")
 
         # plt.figure(figsize=(10, 5))
         # plt.plot(rolling.index, rolling.values, label='5D Rolling Return')
@@ -200,7 +200,7 @@ def price_decay_momentum_analysis(ticker):
         # plt.show()
 
     except Exception as e:
-        print(f"⚠️ Failed to analyze momentum for {ticker}: {e}")
+        print(f"Failed to analyze momentum for {ticker}: {e}")
 
 # RSI indication
 def compute_RSI(base_ticker, period=14):
@@ -224,7 +224,7 @@ def compute_RSI(base_ticker, period=14):
 # rsi = compute_RSI(tick)
 # print(f"RSI for {tick}: {rsi}")
 # if rsi is not None and rsi < 30:
-#     print(f"✅ {tick} has RSI {rsi} (<30) → Confident BUY signal")
+#     print(f"{tick} has RSI {rsi} (<30) → Confident BUY signal")
 
 # Run decay analysis + RSI + MACD + Volume Spike for each Buy Signal
 for i, row in buy_signals.iterrows():
@@ -232,4 +232,4 @@ for i, row in buy_signals.iterrows():
     rsi = compute_RSI(row['Ticker'])
     print(f"RSI for {row['Ticker']}: {rsi}")
     if rsi is not None and rsi < 30:
-        print(f"✅ {row['Ticker']} has RSI {rsi} (<30) → Confident BUY signal")
+        print(f"{row['Ticker']} has RSI {rsi} (<30) → Confident BUY signal")
